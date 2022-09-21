@@ -8,7 +8,6 @@ import (
 	"os/signal"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/troydai/cron"
 	"github.com/troydai/grpc-reconnect/internal/socket"
 	echopb "github.com/troydai/grpc-reconnect/protos"
@@ -38,7 +37,7 @@ func main() {
 
 			fmt.Println("STATUS: ", resp.Status)
 
-			echo, err := client.Echo(ctx, &echopb.EchoRequest{Message: uuid.New().String()})
+			echo, err := client.Echo(ctx, &echopb.EchoRequest{Message: fmt.Sprintf("hello at %s", time.Now())})
 			if err != nil {
 				fmt.Println("ERROR: ", err.Error())
 				return

@@ -11,4 +11,6 @@ ENV SOCKET_PATH=/opt/unix
 COPY . .
 RUN go build -v -o /usr/local/bin/app ./cmd/client/main.go
 
+USER nobody
+
 CMD ["app"]

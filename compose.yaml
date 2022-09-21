@@ -5,6 +5,7 @@ volumes:
 
 services:
   echo-server:
+    restart: always
     build:
       context: .
       dockerfile: dockerfiles/server.Dockerfile

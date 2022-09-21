@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"time"
 
 	"github.com/troydai/grpc-reconnect/internal/echoserver"
 	"github.com/troydai/grpc-reconnect/internal/socket"
@@ -23,6 +24,10 @@ func main() {
 		log.Fatal(err)
 	}
 
+	if err := os.Chmod(socketPath, 0666); err != nil {
+		log.Fatal(err)
+	}
+
 	server := grpc.NewServer()
 	reflection.Register(server)
 	echopb.RegisterEchoServer(server, echoserver.New())
@@ -32,8 +37,16 @@ func main() {
 	}()
 
 	go func() {
+		<-time.After(2 * time.Second)
+		fmt.Println("Wait for 2 second to start ...")
 		fmt.Println("Listening on ", socketPath, " ...")
 		server.Serve(lis)
+	}()
+
+	go func() {
+		// panic after 10 seconds
+		<-time.After(10 * time.Second)
+		panic("Crash!")
 	}()
 
 	waitTerm := make(chan os.Signal, 1)

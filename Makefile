@@ -1,6 +1,6 @@
-.PHONY: run
-run:
-	@ go run cmd/server/main.go
+.PHONY: up
+up:
+	@ docker compose up --build
 
 .PHONY: gen
 gen:
