@@ -3,6 +3,8 @@ module github.com/troydai/grpc-reconnect
 go 1.19
 
 require (
+	github.com/google/uuid v1.1.2
+	github.com/troydai/cron v0.0.0-20220917234540-c4cf0a32d3d2
 	google.golang.org/grpc v1.49.0
 	google.golang.org/protobuf v1.28.1
 )

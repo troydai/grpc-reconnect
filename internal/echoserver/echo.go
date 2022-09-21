@@ -6,6 +6,10 @@ import (
 	echopb "github.com/troydai/grpc-reconnect/protos"
 )
 
+func New() echopb.EchoServer {
+	return &impl{}
+}
+
 type impl struct {
 	echopb.UnimplementedEchoServer
 }
