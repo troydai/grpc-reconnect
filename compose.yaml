@@ -1,0 +1,19 @@
+version: '3.9'
+
+volumes:
+  grpc_unix_socket:
+
+services:
+  echo-server:
+    build:
+      context: .
+      dockerfile: dockerfiles/server.Dockerfile
+    volumes:
+      - grpc_unix_socket:/opt/unix/
+  client-server:
+    build:
+      context: .
+      dockerfile: dockerfiles/client.Dockerfile
+    volumes:
+      - grpc_unix_socket:/opt/unix/:ro
+

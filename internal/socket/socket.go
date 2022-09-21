@@ -5,15 +5,22 @@ import (
 	"path"
 )
 
-const _socketPath = "workspace/server.sock"
+const (
+	_socketPath = "workspace/server.sock"
+	_envPath    = "SOCKET_PATH"
+)
 
 func MustGetPath() string {
-	cwd, err := os.Getwd()
-	if err != nil {
-		panic(err)
+	base := os.Getenv(_envPath)
+	if len(base) == 0 {
+		cwd, err := os.Getwd()
+		if err != nil {
+			panic(err)
+		}
+		base = cwd
 	}
 
-	return path.Join(cwd, _socketPath)
+	return path.Join(base, _socketPath)
 }
 
 func MustEnsureSocket(socketPath string) {
