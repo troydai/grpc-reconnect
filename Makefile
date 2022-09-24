@@ -13,3 +13,9 @@ tools:
 	@ brew install protobuf
 	@ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
 	@ go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+
+.PHONY: build
+build:
+	@ mkdir -p artifacts/grpc-reconnect
+	@ go build -o artifacts/grpc-reconnect/server cmd/server/main.go
+	@ go build -o artifacts/grpc-reconnect/client cmd/client/main.go
